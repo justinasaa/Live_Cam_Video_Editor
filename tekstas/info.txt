@@ -1,0 +1,16 @@
+Atsidaryti- http://localhost:8080/
+
+Kompiliavimas: 
+
+	g++ main.cpp -o cam \
+	$(pkg-config --cflags --libs opencv4) \
+	-pthread
+
+Paleidimas: 
+
+	./cam
+
+
+Bibliotekos:
+
+	sudo apt install g++ pkg-config libopencv-dev ffmpeg

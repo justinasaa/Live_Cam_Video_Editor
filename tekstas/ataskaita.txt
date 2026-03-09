@@ -1,0 +1,29 @@
+*Programinės įrangos pasirinkimas*
+
+Operacinės sistemos pasirinkimas nebuvo itin sunkus klausimas. Buvo du logiški pasirinkimai, tai Windows bei Linux. Ties Windows jau bandant kažką pasileist gali kilti keblumų ir Windows OS lėtesnė, dėl begalės foninių procesų. Tai buvo pasirinkta linux OS, kuri yra "Debian" pagrindu.
+Programavimo kalbos pasirinkimo metu buvo keli variantai. Pradžioje buvo pirma mintis Python, kadangi Python yra paprastesnis, nei kitos programavimo kalbos ir joje yra labai daug paprastai naudojamų bibliotekų. Kita monetos pusė yra greitis, kuris mums yra itin svarbus aspektas, žinant jog mes norėsime tiesioginio eterio metu redaguoti vaizdo įrašą. Python yra lėtesnė už C kalbas, ar kitas žemesnio lygio kalbas. Teko pasidomėt ar su žemesnio lygio kalba išeis vaizdo transliavimas, vieno kadro redagavimas ir kameros skaitymas. Pasirodo tiek C++, tiek c# turi visas galimybes. Vienintelis klausimas ar c++ ar c#. Visa tai savaime išsisprendė ieškant bibliotekų. OpenCV biblioteka buvo sukurta naudojant c++, todėl ant c# ją pasileist buvo gerokai sunkiau ir savaime aišku, kad ši biblioteka veiks greičiau c++ kalboje, nes naudojant c# ta biblioteka vis tiek yra parašyta per c++. 
+
+
+
+*Reikiamų bibliotekų analizė*
+
+Programoje reikės nuskaityti vaizdą iš kameros, imti kiekvieną kadrą, jį redaguoti ir kažkur parodyti tai tiesiogiai. Vaizdą paimti iš kameros radau biblioteką opencv, veikia itin paprastai. Dirbti su kadrais ta pati biblioteka puikiai tinka, tai daugiau ieškoti šioms dalims bibliotekų nereikėjo. Ši biblioteka gali paimti kadrą, įklijuoti nuotrauką, nupiešti stačiakampius, bei išvesti tekstą. Tai yra pagrindinės funkcijos vieno kadro redagavimui, kurių numatoma jog reikės. Ties šiuo tašku mes viską jau turim, ko mums gali reikėti, bet dabar mes niekaip negalime testuoti mūsų programos, nes mes niekur nematom vaizdo, tam reikės dviejų bibliotekų netinet/in.h ir unistd.h, kad galėtume transliuoti vaizdą ir realiu laiku matyti, kaip mūsų programa redaguoja kadrus. Sukurti serverį mum reikės dar vienos gijos, bei ateityje šiuos kadrų redagavimus reikės išlygiagretinti, jei per lėtai viskas veiks. Tam reikalinga biblioteka thread, bei jog gijos nesipjautų reikės mutex. Kitos bibliotekos bus iostream, kas yra pakankamai standartinė biblioteka naudojama tekstiniam įvedimui, bei išvedimui testavimo metu. Vector biblioteka reikalinga dinaminiams masyvams.
+
+
+
+
+
+    Vaizdo tiesioginiam skaitymui
+opencv2 - Nuskaito kamerą, laiko kadrus
+    Vieno kadro redagavimas
+opencv2 - Nuotraukos įklijavimas, teksto įklijavimas, stačiakampių piešimas
+    Transliavimui
+netinet/in.h
+unistd.h
+    Gijoms
+thread - lygiagrečiam darbui
+mutex - gijų pjovimųsi išvengimui
+vector
+    Extra
+iostream - cin/cout
+vector - dinaminiams masyvams
