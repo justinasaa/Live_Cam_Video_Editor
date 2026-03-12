@@ -10,4 +10,11 @@ Programavimo kalbos pasirinkimo metu buvo keli variantai. Pradžioje buvo pirma 
 Programoje reikės nuskaityti vaizdą iš kameros, imti kiekvieną kadrą, jį redaguoti ir kažkur parodyti tai tiesiogiai. Vaizdą paimti iš kameros radau biblioteką opencv, veikia itin paprastai. Dirbti su kadrais ta pati biblioteka puikiai tinka, tai daugiau ieškoti šioms dalims bibliotekų nereikėjo. Ši biblioteka gali paimti kadrą, įklijuoti nuotrauką, nupiešti stačiakampius, bei išvesti tekstą. Tai yra pagrindinės funkcijos vieno kadro redagavimui, kurių numatoma jog reikės. Ties šiuo tašku mes viską jau turim, ko mums gali reikėti, bet dabar mes niekaip negalime testuoti mūsų programos, nes mes niekur nematom vaizdo, tam reikės dviejų bibliotekų netinet/in.h ir unistd.h, kad galėtume transliuoti vaizdą ir realiu laiku matyti, kaip mūsų programa redaguoja kadrus. Sukurti serverį mum reikės dar vienos gijos, bei ateityje šiuos kadrų redagavimus reikės išlygiagretinti, jei per lėtai viskas veiks. Tam reikalinga biblioteka thread, bei jog gijos nesipjautų reikės mutex. Kitos bibliotekos bus iostream, kas yra pakankamai standartinė biblioteka naudojama tekstiniam įvedimui, bei išvedimui testavimo metu. Vector biblioteka reikalinga dinaminiams masyvams.
 
 
+*Bibliotekų testavimas*
 
+Vaizdas sėkmingai nuskaitomas ir transliuojamas iš kameros. Tiesioginės transliacijos metu nuotraukos sėkmingai redaguojamos, ant jų pavyksta uždėti tekstą bei nuotraukas.
+
+
+*Yolo testavimas*
+
+Pavyko pasileisti onnx failą ir davus nuotrauką, jis aptinka krepšinio aikštelės taškus, bet ne visus kurie matosi, kadangi yolo apmokymas nėra pabaigtas, juos pavyko išvesti tiek į terminalą, tiek pavyko tose vietose nupiešti keturkampius, kad būtų įmanoma vizualiai matyti aptinkamas vietas.
