@@ -1,5 +1,0 @@
-Pagrindinės įdėjos:
-1) Lentelę, nepriklausoma nuo aikštelės, tekstas be perspektyvos.
-
-
-3) Aikštelės animavimas

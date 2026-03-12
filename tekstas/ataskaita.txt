@@ -11,19 +11,3 @@ Programoje reikės nuskaityti vaizdą iš kameros, imti kiekvieną kadrą, jį r
 
 
 
-
-
-    Vaizdo tiesioginiam skaitymui
-opencv2 - Nuskaito kamerą, laiko kadrus
-    Vieno kadro redagavimas
-opencv2 - Nuotraukos įklijavimas, teksto įklijavimas, stačiakampių piešimas
-    Transliavimui
-netinet/in.h
-unistd.h
-    Gijoms
-thread - lygiagrečiam darbui
-mutex - gijų pjovimųsi išvengimui
-vector
-    Extra
-iostream - cin/cout
-vector - dinaminiams masyvams

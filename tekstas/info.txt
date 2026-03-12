@@ -1,16 +1,7 @@
-Atsidaryti- http://localhost:8080/
+Padaryta:
+    Įdėtas yolo.
 
-Kompiliavimas: 
-
-	g++ main.cpp -o cam \
-	$(pkg-config --cflags --libs opencv4) \
-	-pthread
-
-Paleidimas: 
-
-	./cam
-
-
-Bibliotekos:
-
-	sudo apt install g++ pkg-config libopencv-dev ffmpeg
+Trūksta:
+    User Interface(Rezultatų įvedimas)
+    Yolo veikimas tiesioginės transliacijos metu
+    Transliacijos skaitymas (iš kitos thread testavimui)

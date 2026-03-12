@@ -1,10 +1,10 @@
-#TEST
-
-#include <opencv2/opencv.hpp>
-#include <iostream>
+//TEST
+#include <opencv2/dnn.hpp>//yolo
+#include <opencv2/opencv.hpp>//cv::Mat
+#include <iostream>//Basic
 #include <vector>
-#include <thread>
-#include <mutex>
+#include <thread>//Threads
+#include <mutex>//locks
 #include <netinet/in.h>
 #include <unistd.h>
 #include <chrono>//sleep
@@ -415,11 +415,68 @@ void UserInterface( Score* score1, mutex* score1m)
 
     
 }
+
+
+void Yolo_test(cv::Mat img, string outp)
+{
+
+    cout<<"YOLO TESTING"<<endl;
+    cv::Mat img_out = img.clone();
+
+
+    cv::dnn::Net net = cv::dnn::readNetFromONNX("best.onnx");
+    
+    cv::Mat blob = cv::dnn::blobFromImage(img, 1.0 / 255.0, cv::Size(640, 640), cv::Scalar(), true, false);
+             
+    net.setInput(blob);
+    
+    cv::Mat out = net.forward();
+    
+    int dimensions = out.size[1];
+    int rows = out.size[2];
+    
+    cv::Mat det(dimensions, rows, CV_32F, out.ptr<float>());
+    cv::transpose(det, det);   // dabar [rows, dimensions]
+
+    float xFactor = (float)img.cols / 640.0f;
+    float yFactor = (float)img.rows / 640.0f;
+    
+    for (int i = 0; i < det.rows; i++) {
+        float* data = det.ptr<float>(i);
+
+        float cx = data[0];
+        float cy = data[1];
+        float w  = data[2];
+        float h  = data[3];
+
+        float conf = 0.0f;
+        for (int j = 4; j < det.cols; j++) {
+            if (data[j] > conf) conf = data[j];
+        }
+        //cout<<"CONF = "<<conf<<endl;
+        if (conf > 0.01f) {
+            int x1 = int((cx - w / 2) * xFactor);
+            int y1 = int((cy - h / 2) * yFactor);
+            int x2 = int((cx + w / 2) * xFactor);
+            int y2 = int((cy + h / 2) * yFactor);
+            Put_Square(img_out, x1, y1, x2-x1, y2-y1);
+            cout << "x1=" << x1
+                      << " y1=" << y1
+                      << " x2=" << x2
+                      << " y2=" << y2
+                      << " conf=" << conf << "\n";
+        }
+    }
+
+    
+    cv::imwrite(outp, img_out);
+}
 //##############################################################################################################
 //                                                     MAIN
 //##############################################################################################################
 int main()
 {
+
     //OPTIONS
     cout<<"Rezimo pasirinkimas\n";
     cout<<"1 karuna + text\n 2 lentelė\n";
@@ -436,7 +493,39 @@ int main()
     //JOKUBO IKI
     
 
-//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//XXXXXXXXXXXXXXXXXXXXXXX YOLO TESTING XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+string names[] = {
+    "frame_00316.jpg",
+    "frame_00347.jpg",
+    "frame_00354.jpg",
+    "frame_00369.jpg",
+    "frame_00377.jpg",
+    "frame_00380.jpg",
+    "frame_00387.jpg",
+    "frame_00391.jpg",
+    "frame_00403.jpg",
+    "frame_00408.jpg"
+};
+for (string name : names){
+    cv::Mat img = cv::imread("pictures/basketball/"+name);
+    if (img.empty()) {
+        std::cout << "Nepavyko nuskaityti nuotraukos\n";
+        continue;
+    }
+    Yolo_test(img, "pictures/basketball_out/"+name);
+}
+
+
+    
+    
+    
+    
+    cout << "11111111111111111\n";  
+    return 0;
+
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
 
     // Open cam
     cv::VideoCapture cap(0);
